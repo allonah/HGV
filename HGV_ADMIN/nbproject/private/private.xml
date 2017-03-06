@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/wamp64/www/HGV_ADMIN/application/controllers/User_control.php</file>
+            <file>file:/C:/wamp64/www/HGV_ADMIN/application/.htaccess</file>
+            <file>file:/C:/wamp64/www/HGV_ADMIN/application/config/config.php</file>
+            <file>file:/C:/wamp64/www/HGV_ADMIN/application/views/Settings.php</file>
+            <file>file:/C:/wamp64/www/HGV_ADMIN/application/views/AddNewAccount.php</file>
+            <file>file:/C:/wamp64/www/HGV_ADMIN/application/controllers/Hgv_controller.php</file>
+            <file>file:/C:/wamp64/www/HGV_ADMIN/application/controllers/index.html</file>
+            <file>file:/C:/wamp64/www/HGV_ADMIN/application/config/autoload.php</file>
+            <file>file:/C:/wamp64/www/HGV_ADMIN/application/views/index.php</file>
+            <file>file:/C:/wamp64/www/HGV_ADMIN/application/views/login_admin.php</file>
+            <file>file:/C:/wamp64/www/HGV_ADMIN/application/config/database.php</file>
+            <file>file:/C:/wamp64/www/HGV_ADMIN/application/views/Database%20backup.php</file>
+            <file>file:/C:/wamp64/www/HGV_ADMIN/application/views/Account.php</file>
+            <file>file:/C:/wamp64/www/HGV_ADMIN/application/views/useradd.php</file>
+            <file>file:/C:/wamp64/www/HGV_ADMIN/application/models/Crud.php</file>
+            <file>file:/C:/wamp64/www/HGV_ADMIN/application/config/routes.php</file>
+            <file>file:/C:/wamp64/www/HGV_ADMIN/.htaccess</file>
+            <file>file:/C:/wamp64/www/HGV_ADMIN/application/models/Hgv_user_model.php</file>
+        </group>
+    </open-files>
+</project-private>
