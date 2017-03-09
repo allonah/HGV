@@ -1,16 +1,21 @@
 <!DOCTYPE html>
 <html>
+<?php
+    if (isset($this->session->userdata['logged_in'])) {
 
+    header("location: http://localhost/HGV_ADMIN/user_login_process");
+}
+?>
 <head>
   <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Login</title>
     <!-- Core CSS - Include with every page -->
- <link href="<?php echo base_url("assets_admin/plugins/bootstrap/bootstrap.css"); ?>" rel="stylesheet" />
+    <link href="<?php echo base_url("assets_admin/plugins/bootstrap/bootstrap.css"); ?>" rel="stylesheet" />
     <link href="<?php echo base_url("assets_admin/font-awesome/css/font-awesome.css"); ?>" rel="stylesheet" />
     <link href="<?php echo base_url("assets_admin/plugins/pace/pace-theme-big-counter.css"); ?>" rel="stylesheet" />
-  <link href="<?php echo base_url("assets_admin/css/style.css"); ?>" rel="stylesheet" />
-      <link href="<?php echo base_url("assets_admin/css/main-style.css"); ?>" rel="stylesheet" />
+    <link href="<?php echo base_url("assets_admin/css/style.css"); ?>" rel="stylesheet" />
+    <link href="<?php echo base_url("assets_admin/css/main-style.css"); ?>" rel="stylesheet" />
 
     <!-- Page-Level CSS -->
     <link href="<?php echo base_url("assets_admin/plugins/dataTables/dataTables.bootstrap.css"); ?>" rel="stylesheet" />
@@ -20,7 +25,22 @@
 </head>
 
 <body class="body-Login-back">
-
+    
+    <?php
+        if (isset($logout_message)) {
+            echo "<div class='message'>";
+            echo $logout_message;
+            echo "</div>";
+        }
+    ?>
+    <?php
+        if (isset($message_display)) {
+            echo "<div class='message'>";
+            echo $message_display;
+            echo "</div>";
+        }
+    ?>
+    
     <div class="container">
        
         <div class ="image" >
@@ -36,21 +56,24 @@
                     </div>
                     <div class="panel-body">
                         <form role="form">
+                            
+                            <?php echo validation_errors(); ?>
+                            <?php echo form_open('Hgv_controller/verifylogin'); ?>
                             <fieldset>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="E-mail" name="email" type="email" autofocus>
+                                    <label for="username">Username:</label>
+                                    <input type="text" value="<?php echo $this->input->post('username'); ?>" id="username" name="username">
                                 </div>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="Password" name="password" type="password" value="">
+                                    <label for="password">Password:</label>
+                                    <input type="password" value="<?php echo $this->input->post('password'); ?>" id="password" name="password">
                                 </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input name="remember" type="checkbox" value="Remember Me">Remember Me
-                                    </label>
-                                </div>
+                               
                                 <!-- Change this to a button or input when using this as a form -->
-                                <a href="admin-hgv/index.php" class="btn btn-lg btn-success btn-block">Login</a>
+                               <input type="submit" value= "Login" class="btn btn-primary">
                             </fieldset>
+                            
+                           <?php echo form_close(); ?>
                         </form>
                     </div>
                 </div>

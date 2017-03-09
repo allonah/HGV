@@ -158,17 +158,14 @@
                 </div>
                 <!--End Page Header -->
             </div>
-    
-
-
-
+   
 <!-- Form Name -->
-<?php echo validation_errors(); ?>
+
 <?php echo form_open('Hgv_controller/add',array("class"=>"form-horizontal")); ?>
 
 	<div class="form-group">
 			<label for="user_type" class="col-md-4 control-label">User Type</label>
-			<div class="col-md-8">
+			<div class="col-md-4">
 				<select name="user_type" class="form-control">
 					<option value="">select</option>
 					<?php 
@@ -190,39 +187,39 @@
 		</div>
 	<div class="form-group">
 		<label for="username" class="col-md-4 control-label">Username</label>
-		<div class="col-md-8">
+		<div class="col-md-4">
 			<input type="text" name="username" value="<?php echo $this->input->post('username'); ?>" class="form-control" id="username" />
 		</div>
 	</div>
 	<div class="form-group">
 		<label for="password" class="col-md-4 control-label">Password</label>
-		<div class="col-md-8">
+		<div class="col-md-4">
 			<input type="password" name="password" value="<?php echo $this->input->post('password'); ?>" class="form-control" id="password" />
 		</div>
 	</div>
 	<div class="form-group">
 		<label for="first_name" class="col-md-4 control-label">First Name</label>
-		<div class="col-md-8">
+		<div class="col-md-4">
 			<input type="text" name="first_name" value="<?php echo $this->input->post('first_name'); ?>" class="form-control" id="first_name" />
 		</div>
 	</div>
 	<div class="form-group">
 		<label for="l_name" class="col-md-4 control-label">Last Name</label>
-		<div class="col-md-8">
+		<div class="col-md-4">
 			<input type="text" name="last_name" value="<?php echo $this->input->post('last_name'); ?>" class="form-control" id="last_name" />
 		</div>
 	</div>
 	<div class="form-group">
 			<label for="branch" class="col-md-4 control-label">Branch</label>
-			<div class="col-md-8">
+			<div class="col-md-4">
 				<select name="branch_id" class="form-control">
 					<option value="">select</option>
 					<?php 
-					$branch_values = array(
-						'1'=>'HGV',
-                                                '2'=>'Little Gab'
-                                            
-					);
+                                            $branch_values = array(
+                                                    '1'=>'HGV',
+                                                    '2'=>'Little Gab'
+
+                                            );
 
 					foreach($branch_values as $value => $display_text)
 					{
@@ -234,18 +231,26 @@
 				</select>
 			</div>
 		</div>
-	
-	
+
+                    <!--VALIDATION ERRORS-->
+                    
+                    <?php if(validation_errors()) { ?>
+                            <div class="alert alert-danger">
+                                <a class="close" data-dismiss="alert">x</a>
+                                <strong><?php echo strip_tags(validation_errors()); ?></strong>
+                            </div>
+                        <?php } ?>   
+                              
 	<div class="form-group">
 		<div class="col-sm-offset-4 col-sm-8">
-			<button type="submit" class="btn btn-success">Save</button>
+			<button type="submit" class="btn btn-primary">Save</button>
+                        <button type="button" class="btn btn-danger" onClick="location.href='<?php echo base_url();?>Hgv_controller/Account'">Cancel</button>
+                </div>
         </div>
-	</div
+	</div>
         
-        <div class="form-group">
-		<div class="col-sm-offset-4 col-sm-8">
-			<button type="button" class="btn btn-danger" onClick="location.href='<?php echo base_url();?>Hgv_controller/Account'">Cancel</button>
-        </div>
+     
+		
 	</div>
 
 <?php echo form_close(); ?>

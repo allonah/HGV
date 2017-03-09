@@ -216,18 +216,15 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <?php  
-                                                    foreach ($user->result() as $row)  
-                                                    {  
-                                               ?>
+                                                <?php foreach($hgv_users as $h){ ?>
                                                 <tr>
-                                                    <td><?php echo $row->user_id;?></td>
-                                                    <td><?php echo $row->username;?></td>
-                                                    <td><?php echo $row->first_name;?></td>
-                                                    <td><?php echo $row->last_name;?></td>
+                                                    <td><?php echo $h['user_id']; ?></td>
+                                                    <td><?php echo $h['username']; ?></td>
+                                                    <td><?php echo $h['first_name']; ?></td>
+                                                    <td><?php echo $h['last_name']; ?></td>
                                                     <td></td>
-                                                    <td><?php echo $row->user_type;?></td>
-                                                    <td><button type="button" class="btn btn-info btn-ms" data-toggle="modal" data-target="#myModal1">Edit</button></td>
+                                                    <td><?php echo $h['user_type']; ?></td>
+                                                    <td> <a href="<?php echo site_url('Hgv_controller/edit/'.$h['user_id']); ?>" class="btn btn-info">Edit</a> </td>
                                                 </tr>
                                                  <?php }  
                                                   ?>
@@ -317,65 +314,7 @@
 				</div>    
                 <button id="btn_AddUser" type="button" class="btn btn-primary btn-lg" onClick="location.href='<?php echo base_url();?>Hgv_controller/AddNewAccount'">Add User
                 </button>
-                        <!-- ADDING USERS-->
-               <div id="adduser_modal" class="modal fade">
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title">Modal title</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body">
-                      <form id="addUser_form" action="" method="post" class="form-horizontal">
-                          <input type="hidden" name="txtId" value="0">
-                          <div class="form-group">
-                              <label for="username" class="label-control col-md-4">Username</label>
-        			<div class="col-md-8">
-        				<input type="text" name="username" class="form-control">
-                                </div>
-                         </div>
-                          
-                          <div class="form-group">
-                              <label for="firstname" class="label-control col-md-4">First Name</label>
-        			<div class="col-md-8">
-        				<input type="text" name="firstname" class="form-control">
-                                </div>
-                         </div>
-                          
-                          <div class="form-group">
-                              <label for="lastname" class="label-control col-md-4">Last Name</label>
-        			<div class="col-md-8">
-        				<input type="text" name="lastname" class="form-control">
-                                </div>
-                         </div>
-                          
-                          <div class="form-group">
-                              <label for="password" class="label-control col-md-4">Password</label>
-        			<div class="col-md-8">
-        				<input type="password" name="password" class="form-control">
-                                </div>
-                         </div>
-                          
-                          <div class="form-group">
-                              <label for="usertype" class="label-control col-md-4">User Type</label>
-        			<div class="col-md-8">
-        				<input type="text" name="usertype" class="form-control">
-                                </div>
-                         </div>
-                          
-                      </form>    
-                    <div class="modal-footer">
-                        <button id="saveuser_btn" type="button" class="btn btn-primary">Add User</button>
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-
-
+                     
     <!-- end wrapper -->
 
     <!-- Core Scripts - Include with every page -->

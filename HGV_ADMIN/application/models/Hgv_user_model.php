@@ -11,6 +11,23 @@ class Hgv_user_model extends CI_Model
         parent::__construct();
     }
     
+    
+    public function login($data) {
+
+        $condition = "usernname =" . "'" . $data['username'] . "' AND " . "password =" . "'" . $data['password'] . "'";
+        $this->db->select('*');
+        $this->db->from('hgv_users');
+        $this->db->where($condition);
+        $this->db->limit(1);
+        $query = $this->db->get();
+
+        if ($query->num_rows() == 1) {
+        return true;
+        } else {
+        return false;
+        }
+        }
+    
     /*
      * Get hgv_user by user_id
      */
@@ -22,7 +39,7 @@ class Hgv_user_model extends CI_Model
     /*
      * Get all hgv_user
      */
-    function get_all_hgv_user()
+     function get_all_hgv_users()
     {
         return $this->db->get('hgv_users')->result_array();
     }
@@ -53,19 +70,23 @@ class Hgv_user_model extends CI_Model
         }
     }
     
-    /*
-     * function to delete hgv_user
-     */
-    function delete_hgv_user($user_id)
-    {
-        $response = $this->db->delete('hgv_users',array('user_id'=>$user_id));
-        if($response)
-        {
-            return "hgv_user deleted successfully";
-        }
-        else
-        {
-            return "Error occuring while deleting hgv_user";
+    
+    // Read data from database to show data in admin page
+    public function read_user_information($username) {
+
+        $condition = "usernname =" . "'" . $username . "'";
+        $this->db->select('*');
+        $this->db->from('hgv_users');
+        $this->db->where($condition);
+        $this->db->limit(1);
+        $query = $this->db->get();
+
+        if ($query->num_rows() == 1) {
+            return $query->result();
+        } else {
+            return false;
         }
     }
+    
+
 }

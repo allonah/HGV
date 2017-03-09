@@ -23,20 +23,21 @@ class Hgv_controller extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
-	public function index()
-	{
-		$this->load->view('index');
-	}
-        
+    
+        public function index(){
+             $this->load->view('index');
+        }
+
+   
         public function Account()
         {
                 //load the database  
                 $this->load->database(); 
                 //load model for crud
-                $this->load->model('Crud');
+                $this->load->model('Hgv_user_model');
                 
                 //load function from model
-                $data['user']=$this->Crud->read_users();
+                 $data['hgv_users'] = $this->Hgv_user_model->get_all_hgv_users();
                 
                 //return data to view
                 $this->load->view('Account',$data);
@@ -50,9 +51,10 @@ class Hgv_controller extends CI_Controller {
                         
         }
         
-        public function useradd(){
+        public function EditAccount(){
             
-            $this->load->view('useradd');
+                $this->load->view('EditAccount');
+                        
         }
         
         public function db_bkup()
@@ -77,19 +79,26 @@ class Hgv_controller extends CI_Controller {
             //load model for crud
             $this->load->model('Hgv_user_model');
             $this->load->library('form_validation');
+            
+            /*username - no space, underscore, period, dash
+
+first name- spaces allowed, dash, period
+last name - period, dash, space*/
+            
+            
                 $this->form_validation->set_rules('user_type','User Type','required');
-		$this->form_validation->set_rules('username','Username','required|alpha_numeric|max_length[45]|min_length[4]');
-		$this->form_validation->set_rules('password','Password','required|alpha_numeric|min_length[6]|max_length[45]');
-		$this->form_validation->set_rules('first_name','First Name','alpha|required|min_length[2]|max_length[45]');
-		$this->form_validation->set_rules('last_name','Last Name','alpha|required|min_length[2]|max_length[45]');
-                $this->form_validation->set_rules('branch_id','Branch ID','required');
+		$this->form_validation->set_rules('username','Username','trim|required|alpha_numeric|max_length[45]|min_length[4]|is_unique[hgv_users.username]');
+		$this->form_validation->set_rules('password','Password','trim|required|alpha_numeric|min_length[6]|max_length[45]');
+		$this->form_validation->set_rules('first_name','First Name','trim|alpha|required|min_length[2]|max_length[45]');
+		$this->form_validation->set_rules('last_name','Last Name','trim|alpha|required|min_length[2]|max_length[45]');
+                $this->form_validation->set_rules('branch_id','Branch ID','trim|required');
 		
 		if($this->form_validation->run())     
         {   
             $params = array(
 			'user_type' => $this->input->post('user_type'),
 			'username' => $this->input->post('username'),
-			'password' => $this->input->post('password'),
+			'password' => md5($this->input->post('password')),
 			'first_name' => $this->input->post('first_name'),
                         'last_name' => $this->input->post('last_name'),
 			'branch_id' => $this->input->post('branch_id'),
@@ -103,6 +112,60 @@ class Hgv_controller extends CI_Controller {
             $this->load->view('AddNewAccount');
         }
     }
+    
+          function edit($user_id)
+    {   
+                  $this->load->database(); 
+                //load model for crud
+                $this->load->model('Hgv_user_model');     
+         
+        // check if the hgv_user exists before trying to edit it
+        $data['hgv_user'] = $this->Hgv_user_model->get_hgv_user($user_id);
+        
+        if(isset($data['hgv_user']['user_id']))
+        {
+            $this->load->library('form_validation');
+            
+            $original_value = $this->db->query("SELECT username FROM hgv_users WHERE user_id = ".$user_id)->row()->username ;
+            if($this->input->post('username') != $original_value) {
+               $is_unique =  '|is_unique[hgv_users.username]';
+            } else {
+               $is_unique =  '';
+            }
 
+                $this->form_validation->set_rules('user_type','User Type','trim|required');
+		$this->form_validation->set_rules('username','Username','trim|required|alpha_numeric|max_length[45]|min_length[4]'.$is_unique);
+		$this->form_validation->set_rules('password','Password','trim|required|alpha_numeric|min_length[6]|max_length[45]');
+		$this->form_validation->set_rules('first_name','First Name','trim|alpha|required|min_length[2]|max_length[45]');
+		$this->form_validation->set_rules('last_name','Last Name','trim|alpha|required|min_length[2]|max_length[45]');
+                $this->form_validation->set_rules('branch_id','Branch ID','trim|required');
+                
+			if($this->form_validation->run())     
+            {   
+                $params = array(
+					'username' => $this->input->post('username'),
+					'password' => md5($this->input->post('password')),
+					'user_type' => $this->input->post('user_type'),
+					'first_name' => $this->input->post('first_name'),
+					'last_name' => $this->input->post('last_name'),
+					'user_status' => $this->input->post('user_status'),
+					'branch_id' => $this->input->post('branch_id'),
+                );
+
+                $this->Hgv_user_model->update_hgv_user($user_id,$params);            
+                redirect('hgv_controller/Account');
+            }
+            else
+            {
+                $this->load->view('EditAccount',$data);
+            }
+        }
+        else
+            show_error('The hgv_user you are trying to edit does not exist.');
+    }
+    
+    
+  
+   
 
 }
