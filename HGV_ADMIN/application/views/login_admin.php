@@ -55,10 +55,9 @@
                         <h3 class="panel-title">Please Sign In</h3>
                     </div>
                     <div class="panel-body">
-                        <form role="form">
+                        <form role="form" action="<?php echo base_url();?>Hgv_controller/Login" method="POST">
                             
-                            <?php echo validation_errors(); ?>
-                            <?php echo form_open('Hgv_controller/verifylogin'); ?>
+                            
                             <fieldset>
                                 <div class="form-group">
                                     <label for="username">Username:</label>
@@ -73,7 +72,7 @@
                                <input type="submit" value= "Login" class="btn btn-primary">
                             </fieldset>
                             
-                           <?php echo form_close(); ?>
+                          
                         </form>
                     </div>
                 </div>

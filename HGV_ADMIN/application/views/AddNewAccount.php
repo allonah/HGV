@@ -112,7 +112,7 @@
                         <li><a href="#"> <i class="fa fa-gear fa-fw"></i>Settings</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="login.php"><i class="fa fa-sign-out fa-fw"></i>Logout</a>
+                         <li><a onClick="location.href='<?php echo base_url();?>Hgv_controller/Logout'"><i class="fa fa-sign-out fa-fw"></i>Logout</a>
                         </li>
                     </ul>
                     <!-- end dropdown-user -->
@@ -131,7 +131,7 @@
                 <!-- side-menu -->
                 <ul class="nav" id="side-menu">
                     <li class="">
-                        <a href="<?php echo site_url('Hgv_controller/index');?>"><i class="fa fa-dashboard fa-fw"></i>Dashboard</a>
+                        <a href="<?php echo site_url('Hgv_controller/dashboard');?>"><i class="fa fa-dashboard fa-fw"></i>Dashboard</a>
                     </li>
                     <li class="selected">
                         <a href="<?php echo site_url('Hgv_controller/Account');?>"> <i class="fa fa-user fa-fw"></i>Account</a>

@@ -5,7 +5,13 @@ class Hgv_controller extends CI_Controller {
         function __construct()
     {
         parent::__construct();
-        
+        $this->load->database();
+        $this->load->library('session');
+        $this->load->helper('form');
+        $this->load->library('form_validation');
+       
+        $this->load->helper('url');
+        $this->load->library('parser');
        
     }
 	/**
@@ -25,12 +31,28 @@ class Hgv_controller extends CI_Controller {
 	 */
     
         public function index(){
+             if(isset($_SESSION['logged_in'])){
              $this->load->view('index');
+            }
+            else{
+                  redirect(base_url().'');
+            }
         }
+        
+        public function dashboard(){
 
+            if(isset($_SESSION['logged_in'])){
+             $this->load->view('index');
+            }
+            else{
+                  redirect(base_url().'');
+            }
+        }
    
         public function Account()
         {
+            
+            if(isset($_SESSION['logged_in'])){
                 //load the database  
                 $this->load->database(); 
                 //load model for crud
@@ -41,31 +63,60 @@ class Hgv_controller extends CI_Controller {
                 
                 //return data to view
                 $this->load->view('Account',$data);
+
+            }
+            else{
+                 redirect(base_url().'');
+            }
+
   
         }
        
         
         public function AddNewAccount(){
-            
-                $this->load->view('AddNewAccount');
+                 if(isset($_SESSION['logged_in'])){
+             $this->load->view('AddNewAccount');
+            }
+            else{
+                  redirect(base_url().'');
+            }
+                
                         
         }
         
         public function EditAccount(){
             
-                $this->load->view('EditAccount');
+                 if(isset($_SESSION['logged_in'])){
+             $this->load->view('EditAccount');
+            }
+            else{
+                  redirect(base_url().'');
+            }
+                
                         
         }
         
         public function db_bkup()
         {
-                $this->load->view('database backup');
+                 if(isset($_SESSION['logged_in'])){
+             $this->load->view('database backup');
+            }
+            else{
+                  redirect(base_url().'');
+            }
+                
               
         }
         
         public function settings()
         {
-                $this->load->view('Settings');
+                 if(isset($_SESSION['logged_in'])){
+             $this->load->view('Settings');
+            }
+            else{
+                  redirect(base_url().'');
+            }
+                
         }
         
         public function showusers(){
@@ -159,13 +210,61 @@ last name - period, dash, space*/
             {
                 $this->load->view('EditAccount',$data);
             }
-        }
+}
         else
             show_error('The hgv_user you are trying to edit does not exist.');
     }
     
-    
+    public function Login()
+ {
+         $this->load->model('User_model');
+         
+         
+         $this->form_validation->set_rules('username', 'username', 'trim|required|alpha_numeric|max_length[45]|min_length[4]');
+        
+         if ($this->form_validation->run() == false)
+             {
+              redirect('');
+             exit;
+             
+             }
   
+                $this->form_validation->set_rules('password', 'password', 'required');
+                if ($this->form_validation->run() == false)
+                {
+
+                 redirect('');
+                exit;
+                }
+
+                if ($this->form_validation->run() == true)
+                {
+
+                $username = $this->input->post('username');
+                $password = md5(trim($this->input->post('password')));
+                $res = $this->User_model->login($username,$password);
+                echo $res; 
+                exit;
+                }
+                
+                }
+                
+                 public function logout()
+                {
+                $this->session->sess_destroy();
+                redirect(base_url().''); 
+                }
+                
+                public function check_session()
+               {
+                if(!$this->session->userdata['logged_in'])
+                {
+                    redirect(base_url().'');
+                }
+            }         
+
+
+
    
 
 }
